@@ -9,4 +9,19 @@
     grid-template-rows: repeat(var(--grid-rows), 1fr);
     grid-template-columns: repeat(var(--grid-cols), 1fr);
     text-align: center;
+    
+  }
+  #mainDiv {
+    width: 50%;
+    text-align: center;
+    margin: 100px auto;
+    font-size: xxx-large;
+  }
+  .grid-item {
+    border: 1px solid black;
+  }
+  #displayP {
+    border: 1px solid black;
+    height: 57px;
+    text-align: right;
   }
