@@ -1,0 +1,74 @@
+:root {
+  --grid-cols: 1;
+  --grid-rows: 1;
+}
+
+body {
+  background-color: black;
+  font-family: 'Roboto', sans-serif;
+
+}
+
+#container {
+  display: grid;
+  grid-gap: 0px;
+  grid-column-gap: 1px;
+  grid-template-rows: repeat(var(--grid-rows), 1fr);
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+  text-align: center;
+  cursor: pointer;
+
+}
+
+#mainDiv {
+  width: 50%;
+  text-align: center;
+  margin: 20px auto;
+  font-size: xxx-large;
+  border-radius: 20px;
+  border: rgb(45, 59, 59) solid;
+  padding: 20px;
+}
+
+#displayP {
+  border: 1px solid black;
+  height: 57px;
+  text-align: right;
+  background-color: #878787;
+  border-radius: 20px;
+  padding-right: 10px;
+  text-decoration-color: white;
+}
+
+.grid-item {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  color: #FFFFFF;
+  font-size: 40px;
+  font-weight: 100;
+  padding: 20px;
+  background-color: #878787;
+  box-shadow: 1px 1px 20px 0px #000000;
+  -webkit-box-shadow: 1px 1px 20px 0px #000000;
+  -moz-box-shadow: 1px 1px 20px 0px #000000;
+  text-shadow: 1px 1px 20px #000000;
+  border: outset #000000 2px;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+}
+
+.grid-item:hover {
+  background: #262728;
+  border: solid #000000 2px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  text-decoration: none;
+}
+h1 {
+  color: aliceblue;
+  text-align: center;
+}
