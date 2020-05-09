@@ -30,16 +30,56 @@ for (let i of divArray) {
 
 }
 
-function splitExp() {
-    let regMul = /[0-9]\*[0-9]/g;
-    let regDiv = /{0-9}|\/|{0-9}/g;
-    let regAdd = /{0-9}|\+|{0-9}/g;
-    let regSub = /{0-9}|\-|{0-9}/g;
-    if(expStr.match(regMul) != '') {
-        let tempArr = expStr.match(regMul);
-        alert(parseInt(tempArr[0][0])*parseInt(tempArr[0][2]));
+function splitExp(expStr) {
+    let tempStr;
+    let regMulDiv = /[0-9]+\.?[0-9]*[\*\/][+-]?[0-9]+\.?[0-9]*/g;
+    let regAddSub = /[0-9]+\.?[0-9]*[\+\-][\*\/]?[0-9]+\.?[0-9]*/g;
+    let mulBrek = /\*/g;
+    let addBrek = /\+/g;
+    while (tempStr = expStr.match(regMulDiv)) {
+        expStr = (tempStr[0].match(mulBrek)) ? (expStr.replace(tempStr[0], mul(tempStr[0]))) : expStr.replace(tempStr[0], divi(tempStr[0]));
     }
+    while (tempStr = expStr.match(regAddSub)) {
+        expStr = tempStr[0].match(addBrek) ? expStr.replace(tempStr[0], add(tempStr[0])) :expStr.replace(tempStr[0],subs(tempStr[0]));
+    }
+    console.log(expStr);
 }
+
+/*function division(arr) {
+    let div;
+    for (let i = 0; i < arr.length; i++) {
+        div = parseFloat(arr[i][0]) / parseFloat(arr[i][2]);
+
+    }
+    return div;
+}
+function multiply(s, b) {
+      b = s.split('*');
+      return b[0] * b[1];
+    }
+*/
+
+function add(arr, t) {
+    t = arr.split('+');
+    let sum = Number(t[0]) + Number(t[1]);
+    return sum;
+}
+
+function subs(arr, t) {
+    t = arr.split('-');
+    return parseInt(t[0]) - parseInt(t[1]);
+}
+
+function mul(arr, t) {
+    t = arr.split('*');
+    return parseInt(t[0]) * parseInt(t[1]);
+}
+
+function divi(arr, t) {
+    t = arr.split('/');
+    return parseInt(t[0]) / parseInt(t[1]);
+}
+
 
 let count = 0;
 
@@ -54,6 +94,9 @@ function display(i) {
 
 }
 
+
+
 function arrToStr() {
     expStr = expArr.join('');
+    splitExp(expStr);
 }
