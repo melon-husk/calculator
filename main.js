@@ -1,7 +1,7 @@
-let symbolArray = [7, 8, 9, '/', 4, 5, 6, '*', 1, 2, 3, '=', 0, '.', '%', '+'];
+let symbolArray = [7, 8, 9, '/', 4, 5, 6, '*', 1, 2, 3, '-', 0, '.', '=', '+'];
 let expArr = [];
 let expStr;
-
+let count = 0;
 function makeGrid(rows, cols) {
     container.style.setProperty('--grid-rows', rows);
     container.style.setProperty('--grid-cols', cols);
@@ -33,7 +33,7 @@ for (let i of divArray) {
 function splitExp(expStr) {
     let tempStr;
     let regMulDiv = /[0-9]+\.?[0-9]*[\*\/][+-]?[0-9]+\.?[0-9]*/g;
-    let regAddSub = /[0-9]+\.?[0-9]*[\+\-][\*\/]?[0-9]+\.?[0-9]*/g;
+    let regAddSub = /-?[0-9]+\.?[0-9]*[\+\-][+-]?[0-9]+\.?[0-9]*/g;
     let mulBrek = /\*/g;
     let addBrek = /\+/g;
     while (tempStr = expStr.match(regMulDiv)) {
@@ -42,22 +42,10 @@ function splitExp(expStr) {
     while (tempStr = expStr.match(regAddSub)) {
         expStr = tempStr[0].match(addBrek) ? expStr.replace(tempStr[0], add(tempStr[0])) :expStr.replace(tempStr[0],subs(tempStr[0]));
     }
-    console.log(expStr);
+    //console.log(expStr);
+    document.getElementById('displayP').textContent = expStr;
 }
 
-/*function division(arr) {
-    let div;
-    for (let i = 0; i < arr.length; i++) {
-        div = parseFloat(arr[i][0]) / parseFloat(arr[i][2]);
-
-    }
-    return div;
-}
-function multiply(s, b) {
-      b = s.split('*');
-      return b[0] * b[1];
-    }
-*/
 
 function add(arr, t) {
     t = arr.split('+');
@@ -79,22 +67,28 @@ function divi(arr, t) {
     t = arr.split('/');
     return parseInt(t[0]) / parseInt(t[1]);
 }
-
-
-let count = 0;
-
+let state = 0;
 function display(i) {
     /*if(typeof(i)=="number") {
         document.getElementById('displayP').textContent+=i;
     }*/
-
-    document.getElementById('displayP').textContent += i;
-    expArr[count] = i;
-    count++;
+    
+    if(i != '=') {
+        if(state == 1) {
+            document.getElementById('displayP').textContent = '';
+            state = 0;
+        }
+        document.getElementById('displayP').textContent += i;
+        expArr[count] = i;
+        count++;
+    }
+    else {
+        arrToStr();
+        state = 1;
+    }
+    
 
 }
-
-
 
 function arrToStr() {
     expStr = expArr.join('');
