@@ -77,7 +77,10 @@ function splitExp(expStr) {
 
 
 function add(arr, t) {
-    t = arr.split('+');
+    if(t=arr.match(/^\+*/g,'')) {
+        arr=arr.replace(/^\+*/g,'');
+    }                                      
+    t=arr.split('+');
     let sum = Number(t[0]) + Number(t[1]);
     return sum;
 }
