@@ -57,6 +57,13 @@ for (let i of divArray) {
 
 }
 
+// function filterSubsAdds(str) {
+//     let addFilter = 
+
+//     return str
+// }
+
+
 function splitExp(expStr) {
     let tempStr;
     let regMulDiv = /[0-9]+\.?[0-9]*[\*\/][+-]?[0-9]+\.?[0-9]*/;
@@ -100,13 +107,13 @@ function subs(arr) {
     let t;
     arr = arr.replace(/\+-|-\+/g, '-');
     if (arr.match(/--/)) {
-        while(arr.match(/--/)) {
+        while (arr.match(/--/)) {
             arr = arr.replace(/--/, '+');
             console.log(arr);
         }
     }
     t = arr.split('-');
-    return t.length == 3 ? -1 * t[1] - t[2] : t[0] - t[1];
+    return t.length == 3 ? -1 * t[1] - t[2] : t[0] - t[1]; //2-2
 }
 
 function mul(arr) {
@@ -122,6 +129,7 @@ function divi(arr) {
 }
 
 function display(i) {
+    
     if (i == 'b') {
         if (expArr.length != 0) {
             expArr.pop();
@@ -129,6 +137,14 @@ function display(i) {
             s.textContent = s.textContent.substring(0, s.textContent.length - 1);
             count--;
         }
+    //  } else if (i == '-') 
+    //      // prevState = i;
+    //      if () {
+    //          expArr.pop();
+    //          let s = document.getElementById('displayP');
+    //          s.textContent = s.textContent.substring(0, s.textContent.length - 1);
+    //          count -= 2
+    //      }
     } else if (i != '=') {
         if (state == 1) {
             document.getElementById('displayP').textContent = '';
@@ -140,6 +156,33 @@ function display(i) {
 
         document.getElementById('displayP').textContent += i;
         expArr[count] = i;
+        if((expArr[count] == '-' || expArr[count] == '+') && expArr.length >0) {
+            if(expArr[count-1] == '-' && expArr[count] == '-') {
+                expArr.pop();
+                expArr.pop();
+                expArr.push('+');
+                let s = document.getElementById('displayP');
+                s.textContent = s.textContent.substring(0, s.textContent.length - 2);
+                document.getElementById('displayP').textContent += '+';
+                count --;
+            }
+            else if((expArr[count] == '-' && expArr[count-1] == '+')||(expArr[count] == '+' && expArr[count-1] == '-')) { //+-||-+
+                expArr.pop();
+                expArr.pop();
+                expArr.push('-');
+                let s = document.getElementById('displayP');
+                s.textContent = s.textContent.substring(0, s.textContent.length - 2);
+                document.getElementById('displayP').textContent += '-';
+                count --;
+            }
+            else if(expArr[count] == '+' && expArr[count-1] == '+') {
+                expArr.pop();
+                let s = document.getElementById('displayP');
+                s.textContent = s.textContent.substring(0, s.textContent.length - 1);
+                count --;
+                //document.getElementById('displayP').textContent += '+';
+            }
+        }
         count++;
     } else if (i == '=') {
         arrToStr();
@@ -156,7 +199,8 @@ function arrToStr() {
     expArr = [];
 }
 
-function backspace(str) {
-    str.subString(0, str.length - 1);
+// function backspace(str) {
+//     str.subString(0, str.length - 1);
 
-}
+// }
+
